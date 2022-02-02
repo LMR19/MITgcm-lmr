@@ -1,11 +1,11 @@
 ieee = 'b';           % big-endian format
 accuracy = 'float32'; % this is single-precision (='real*4')
 
-Ho = 1800;  % depth of ocean (m)
+Ho = 1000;  % depth of ocean (m)
 nx = 62;    % gridpoints in x
 ny = 62;    % gridpoints in y
 xo = 0;     % origin in x,y for ocean domain
-yo = 15;    % (i.e. southwestern corner of ocean domain)
+yo = 0;    % (i.e. southwestern corner of ocean domain)
 dx = 1;     % grid spacing in x (degrees longitude)
 dy = 1;     % grid spacing in y (degrees latitude)
 xeast  = xo + (nx-2)*dx;   % eastern extent of ocean domain
@@ -37,14 +37,32 @@ fclose(fid);
 % See section 2.11.4 of the MITgcm users manual.
 
 % Zonal wind-stress
-tauMax = 0.1;
-x = (xo-dx) : dx : xeast;
-y = (yo-dy/2) : dy : (ynorth+dy/2); 
-[X,Y] = ndgrid(x, y);  % zonal wind-stress on (XG,YC) points
-tau = -tauMax * cos(2*pi*((Y-yo)/(ny-2)/dy)); % ny-2 accounts for walls at N,S boundaries
-fid=fopen('windx_cosy.bin', 'w', ieee);
+tauMax = 0.5;
+% x = (xo-dx) : dx : xeast;
+% y = (yo-dy/2) : dy : (ynorth+dy/2); 
+% [X,Y] = ndgrid(x, y);  % zonal wind-stress on (XG,YC) points
+
+x = (-1:nx-2) / (nx-2);       % non-dim x-coordinate, located at XG points
+y = ((0:ny-1)-0.5) / (ny-2);  % non-dim y-coordinate, located at YC points
+[X,Y] = ndgrid(x, y);
+
+% tau = -tauMax * cos(2*pi*((Y-yo)/(ny-2)/dy)); % ny-2 accounts for walls at N,S boundaries
+% fid=fopen('windx_cosy.bin', 'w', ieee);
+% fwrite(fid, tau, accuracy);
+% fclose(fid);
+
+% generate file for -cos(y) profile
+tau = -tauMax * cos(pi*Y);
+fid = fopen('windx_cosy.bin', 'w', ieee);
 fwrite(fid, tau, accuracy);
 fclose(fid);
+
+% generate file for sin(y) profile
+% tau = tauMax * sin(pi*Y); 
+% fid = fopen('windx_siny.bin', 'w', ieee);
+% fwrite(fid, tau, accuracy);
+% fclose(fid);
+
 
 % Restoring temperature (function of y only,
 % from Tmax at southern edge to Tmin at northern edge)

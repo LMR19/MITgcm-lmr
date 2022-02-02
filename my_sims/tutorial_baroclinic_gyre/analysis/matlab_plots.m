@@ -1,6 +1,7 @@
 % read in additional colormaps for plots
 % assumes 'addpath ../../../utils/matlab/' typed from your run directory
 % which is also where other matlab functions such as 'rdmds' are located
+
 bluered_colormaps
 
 
@@ -241,3 +242,11 @@ bluered_colormaps
 %
 % but note that unlike python, matlab pcolor doesn't plot the bottom
 % layer of valid temperature data (the ending column)
+
+
+%% 
+
+
+Eta=rdmds('Eta', 0000596160);
+XC=rdmds('XC.001.001');
+YC=rdmds('YC.001.001');

@@ -115,3 +115,5 @@ core
 
 /verification/*/tr_run.*
 
+/my_sims/tutorial_baroclinic_gyre/build/*
+/my_sims/tutorial_baroclinic_gyre/run*/*
