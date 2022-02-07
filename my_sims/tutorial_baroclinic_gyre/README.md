@@ -177,6 +177,21 @@ In data file:
 Run06 took about 50 minutes!
 
 
+Run07: tau same as run04, but  changed no_slips 
+
+      tauMax = 0.5;
+      x = (-1:nx-2) / (nx-2);       % non-dim x-coordinate, located at XG points
+      y = ((0:ny-1)-0.5) / (ny-2);  % non-dim y-coordinate, located at YC points
+      [X,Y] = ndgrid(x, y);
+      tau = -tauMax * cos(pi*Y);
+
+In data file:
+
+      no_slip_sides=.FALSE.,
+      no_slip_bottom=.TRUE.,
+              
+
+
 The different runs correspond to different tau and in the case of Run06 a longer runtime. MATLAB script gendata.m was used to change wind stress (tau). After changing tau the "run" steps were repeated.
 
-Eta, U, V, and W were plotted using MATLAB script Baroclinic_Gyre_contour_plots.m. The script and plots are in /analysis folder. 
+Eta, U, V, and W were plotted using MATLAB script Baroclinic_Gyre_contour_plots.m. The script and plots are in /analysis folder. Run04, 06 and 07 also have hovmoller diagrams of Eta, U, V, and W to show the progression over a year, or 10 years at X=10. It looks like about 5 years are needed to reach steady state in Eta. 

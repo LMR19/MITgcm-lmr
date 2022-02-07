@@ -34,19 +34,19 @@
    fileflags(2) = 'R',
 
 #--
-   fields(1:3,3)  = 'ETAN    ','TRELAX  ','MXLDEPTH',
-   fileName(3) = 'surfDiag',
-   frequency(3) = -8640.,
-   timePhase(3) = -8640.,
-   fileflags(3) = 'R',
+#   fields(1:3,3)  = 'ETAN    ','TRELAX  ','MXLDEPTH',
+#   fileName(3) = 'surfDiag',
+#   frequency(3) = -8640.,
+#   timePhase(3) = -8640.,
+#   fileflags(3) = 'R',
 
-   fields(1:5,4)  = 'THETA   ','PHIHYD  ',
+#   fields(1:5,4)  = 'THETA   ','PHIHYD  ',
                    'UVEL    ','VVEL    ','WVEL    ',
 # did not specify levels => all levels are selected
-   fileName(4) = 'dynDiag',
-   frequency(4) = -8640.,
-   timePhase(4) = -8640.,
-   fileflags(4) = 'R',
+#   fileName(4) = 'dynDiag',
+#   frequency(4) = -8640.,
+#   timePhase(4) = -8640.,
+#   fileflags(4) = 'R',
  &
 
 #--------------------

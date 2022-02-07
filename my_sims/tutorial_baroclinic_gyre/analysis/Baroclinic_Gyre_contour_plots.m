@@ -73,7 +73,93 @@ set(gca,'fontsize',16,'fontname','Times New Roman');
 caxis([-round(max(max(max(W))),1) round(max(max(max(W))),1)])
 
 f=pwd;
-saveas(gcf,['Eta_UVW_' f(end-4:end)],'jpg')
+% saveas(gcf,['Eta_UVW_' f(end-4:end)],'jpg')
+%%
+dat2d_full=rdmnc('outs_2D.0000000000*'); % 8640 for run < 06 233280 for run06
+dat3d_full=rdmnc('outs_3D.0000000000*');
+
+T=dat2d_full.T;
+X=dat2d_full.X;
+Y=dat2d_full.Y;
+Eta=dat2d_full.ETAN;
+Xp1=dat3d_full.Xp1;
+Yp1=dat3d_full.Yp1;
+U=dat3d_full.UVEL;
+V=dat3d_full.VVEL;
+W=dat3d_full.WVEL;
+
+n=10;
+
+for ts=1:length(T)
+    
+    Eta_hm(ts,:)=Eta(:,n,1,ts);
+    U_hm(ts,:)=U(:,n,1,ts);
+    V_hm(ts,:)=V(:,n,1,ts);
+    W_hm(ts,:)=W(:,n,1,ts);
+    
+end
+
+
+figure 
+
+% sgtitle('Subplot Grid Title','location','northeast')
+
+subplot(221)
+pcolor(T/(3600*24),Y,Eta_hm')
+hold on
+title('Eta [m]')
+ylabel('Y')
+xlabel('Time [days]')
+shading flat
+colorbar
+xlim([0 T(end)/(3600*24)])
+ylim([10 80])
+set(gca,'fontsize',16,'fontname','Times New Roman');
+caxis([-round(max(max(Eta_hm)),1) round(max(max(Eta_hm)),1)])
+text(-599, 97.0153,'Matlab code: Baroclinic\_Gyre\_contour\_plots.m')
+
+subplot(222)
+pcolor(T/(3600*24),Yp1,U_hm')
+hold on
+title('U [m/s]')
+ylabel('Yp1')
+xlabel('Time [days]')
+shading flat
+colorbar
+xlim([0 T(end)/(3600*24)])
+ylim([10 80])
+set(gca,'fontsize',16,'fontname','Times New Roman');
+caxis([-round(max(max(max(U_hm))),1) round(max(max(max(U_hm))),1)])
+
+subplot(223)
+pcolor(T/(3600*24),Y,V_hm')
+hold on
+title('V [m/s]')
+ylabel('Y')
+xlabel('Time [days]')
+shading flat
+colorbar
+xlim([0 T(end)/(3600*24)])
+ylim([10 80])
+set(gca,'fontsize',16,'fontname','Times New Roman');
+caxis([-round(max(max(max(V_hm))),1) round(max(max(max(V_hm))),1)])
+
+subplot(224)
+pcolor(T/(3600*24),Y,W_hm')
+hold on
+title('W [m/s]')
+ylabel('Y')
+xlabel('Time [days]')
+shading flat
+colorbar
+xlim([0 T(end)/(3600*24)])
+ylim([10 80])
+set(gca,'fontsize',16,'fontname','Times New Roman');
+caxis([-round(max(max(max(W_hm))),1) round(max(max(max(W_hm))),1)])
+
+f=pwd;
+saveas(gcf,['Eta_UVW_hm_' f(end-4:end)],'jpg')
+
 
 %% 
 
